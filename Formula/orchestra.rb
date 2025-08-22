@@ -6,13 +6,13 @@ class Orchestra < Formula
 
   # Binary-only distribution - downloads pre-compiled packages
   if OS.mac? && Hardware::CPU.intel?
-    url "https://github.com/humanunsupervised/orchestra/releases/download/v0.1.4/orchestra-macos-intel.tar.gz"
-    sha256 "7abef9873a54f3e5df45369111a62911db6187612f937d34f01181c5bb731630"
+    url "https://github.com/humanunsupervised/orchestra/releases/download/v0.1.5/orchestra-macos-intel.tar.gz"
+    sha256 "47f461c4e31242e3cc4005bb69da21b486190443a9018f14205878cc002b0bb4"
   elsif OS.mac? && Hardware::CPU.arm?
-    url "https://github.com/humanunsupervised/orchestra/releases/download/v0.1.4/orchestra-macos-arm64.tar.gz"
-    sha256 "53ff34bacbfda15ed12c1910c67fa1657053104f2677bfbe843340b6f257a0ad"
+    url "https://github.com/humanunsupervised/orchestra/releases/download/v0.1.5/orchestra-macos-arm64.tar.gz"
+    sha256 "63764b142459ebcb91c92ea7b75513dff54385c702576a34cf053e7f4d620994"
   elsif OS.linux? && Hardware::CPU.intel?
-    url "https://github.com/humanunsupervised/orchestra/releases/download/v0.1.4/orchestra-linux-x64.tar.gz"
+    url "https://github.com/humanunsupervised/orchestra/releases/download/v0.1.5/orchestra-linux-x64.tar.gz"
     sha256 "PLACEHOLDER_SHA256_LINUX"
   else
     odie "Orchestra is not available for #{OS.kernel_name} #{Hardware::CPU.arch}"

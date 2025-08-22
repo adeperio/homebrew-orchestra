@@ -1,18 +1,18 @@
 class Orchestra < Formula
   desc "AI-powered Git worktree and tmux session manager with modern TUI"
-  homepage "https://github.com/adeperio/orchestra"
-  version "0.1.3"
+  homepage "https://github.com/humanunsupervised/orchestra"
+  version "0.1.4"
   license "Proprietary"
 
   # Binary-only distribution - downloads pre-compiled packages
   if OS.mac? && Hardware::CPU.intel?
-    url "https://github.com/adeperio/orchestra/releases/download/v0.1.2/orchestra-macos-intel.tar.gz"
-    sha256 "4a47973cb726201388ae5ad8608824c7e5f331ab27a1485396bb3585a7bbbe52"
+    url "https://github.com/humanunsupervised/orchestra/releases/download/v0.1.4/orchestra-macos-intel.tar.gz"
+    sha256 "b32d38c979a07347969f4360deb991b888f726943d43c2e123ac9c29b04ff5d1"
   elsif OS.mac? && Hardware::CPU.arm?
-    url "https://github.com/adeperio/orchestra/releases/download/v0.1.2/orchestra-macos-arm64.tar.gz"
-    sha256 "57d69d16c209c4ef79e079de82f89136b3681fe0ee37b23f65c4425fbd035e62"
+    url "https://github.com/humanunsupervised/orchestra/releases/download/v0.1.4/orchestra-macos-arm64.tar.gz"
+    sha256 "1d23375ddd8c55ea7c8dd2f443ad0203bec9c4cdf18b9929d7e39b18ce4bab45"
   elsif OS.linux? && Hardware::CPU.intel?
-    url "https://github.com/adeperio/orchestra/releases/download/v0.1.2/orchestra-linux-x64.tar.gz"
+    url "https://github.com/humanunsupervised/orchestra/releases/download/v0.1.4/orchestra-linux-x64.tar.gz"
     sha256 "PLACEHOLDER_SHA256_LINUX"
   else
     odie "Orchestra is not available for #{OS.kernel_name} #{Hardware::CPU.arch}"

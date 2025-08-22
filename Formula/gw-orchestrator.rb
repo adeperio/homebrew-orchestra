@@ -7,10 +7,10 @@ class GwOrchestrator < Formula
   # Binary-only distribution - downloads pre-compiled packages
   if OS.mac? && Hardware::CPU.intel?
     url "https://github.com/adeperio/orchestra/releases/download/v0.1.0/gw-orchestrator-macos-intel.tar.gz"
-    sha256 "ab1dc6c2ef094ac3f82539430962e9a381edbaa1fde9155c13d8edc0ef2c229d"
+    sha256 "b8cdc0b2aadc33ea40f82b380a27cac7af438603979abc648ad9304ab37677e4"
   elsif OS.mac? && Hardware::CPU.arm?
     url "https://github.com/adeperio/orchestra/releases/download/v0.1.0/gw-orchestrator-macos-arm64.tar.gz"
-    sha256 "9d7710bc9214935e6286c0462ea661ceaa4f33c45218f3a32a6823c2710522a8"
+    sha256 "384db4160470c3cf3a0fd9cbe94c63f582c99ed3f4ff97d6438ab77ad67d5313"
   elsif OS.linux? && Hardware::CPU.intel?
     url "https://github.com/adeperio/orchestra/releases/download/v0.1.0/gw-orchestrator-linux-x64.tar.gz"
     sha256 "PLACEHOLDER_SHA256_LINUX"

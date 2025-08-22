@@ -1,18 +1,18 @@
-class GwOrchestrator < Formula
+class Orchestra < Formula
   desc "AI-powered Git worktree and tmux session manager with modern TUI"
   homepage "https://github.com/adeperio/orchestra"
-  version "0.1.2"
+  version "0.1.3"
   license "Proprietary"
 
   # Binary-only distribution - downloads pre-compiled packages
   if OS.mac? && Hardware::CPU.intel?
-    url "https://github.com/adeperio/orchestra/releases/download/v0.1.0/gw-orchestrator-macos-intel.tar.gz"
-    sha256 "b8cdc0b2aadc33ea40f82b380a27cac7af438603979abc648ad9304ab37677e4"
+    url "https://github.com/adeperio/orchestra/releases/download/v0.1.2/orchestra-macos-intel.tar.gz"
+    sha256 "4a47973cb726201388ae5ad8608824c7e5f331ab27a1485396bb3585a7bbbe52"
   elsif OS.mac? && Hardware::CPU.arm?
-    url "https://github.com/adeperio/orchestra/releases/download/v0.1.0/gw-orchestrator-macos-arm64.tar.gz"
-    sha256 "384db4160470c3cf3a0fd9cbe94c63f582c99ed3f4ff97d6438ab77ad67d5313"
+    url "https://github.com/adeperio/orchestra/releases/download/v0.1.2/orchestra-macos-arm64.tar.gz"
+    sha256 "57d69d16c209c4ef79e079de82f89136b3681fe0ee37b23f65c4425fbd035e62"
   elsif OS.linux? && Hardware::CPU.intel?
-    url "https://github.com/adeperio/orchestra/releases/download/v0.1.0/gw-orchestrator-linux-x64.tar.gz"
+    url "https://github.com/adeperio/orchestra/releases/download/v0.1.2/orchestra-linux-x64.tar.gz"
     sha256 "PLACEHOLDER_SHA256_LINUX"
   else
     odie "Orchestra is not available for #{OS.kernel_name} #{Hardware::CPU.arch}"
@@ -24,7 +24,7 @@ class GwOrchestrator < Formula
 
   def install
     # Install pre-compiled binary (renamed from gw-tui in the package)
-    bin.install "gw-orchestrator" => "orchestra-bin"
+    bin.install "orchestra" => "orchestra-bin"
     
     # Install runtime scripts to libexec
     libexec.install "gwr.sh"

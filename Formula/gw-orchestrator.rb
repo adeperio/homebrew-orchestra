@@ -1,7 +1,7 @@
 class GwOrchestrator < Formula
   desc "AI-powered Git worktree and tmux session manager with modern TUI"
   homepage "https://github.com/adeperio/orchestra"
-  version "0.1.0"
+  version "0.1.2"
   license "Proprietary"
 
   # Binary-only distribution - downloads pre-compiled packages
@@ -24,7 +24,7 @@ class GwOrchestrator < Formula
 
   def install
     # Install pre-compiled binary (renamed from gw-tui in the package)
-    bin.install "gw-orchestrator"
+    bin.install "gw-orchestrator" => "orchestra-bin"
     
     # Install runtime scripts to libexec
     libexec.install "gwr.sh"
@@ -40,20 +40,51 @@ class GwOrchestrator < Formula
     # Create wrapper scripts that set correct paths
     (bin/"gwr").write wrapper_script("gwr.sh")
     (bin/"gw").write wrapper_script("gw.sh")
+    
+    # Create primary orchestra command (same as gwr for TUI interface)
+    (bin/"orchestra").write orchestra_wrapper_script()
   end
 
   def wrapper_script(script_name)
     <<~EOS
       #!/bin/bash
       export GW_ORCHESTRATOR_ROOT="#{libexec}"
-      export GW_TUI_BIN="#{bin}/gw-orchestrator"
+      export GW_TUI_BIN="#{bin}/orchestra-bin"
       exec "#{libexec}/#{script_name}" "$@"
+    EOS
+  end
+
+  def orchestra_wrapper_script
+    <<~EOS
+      #!/bin/bash
+      # Primary Orchestra command - launches TUI interface
+      export GW_ORCHESTRATOR_ROOT="#{libexec}"
+      export GW_TUI_BIN="#{bin}/orchestra-bin"
+      
+      # Handle directory switching like gwr wrapper
+      out="$(#{libexec}/gwr.sh "$@")"
+      status=$?
+      cd_line="$(echo "$out" | grep -m1 '^cd')"
+      [[ -n $cd_line ]] && eval "$cd_line"
+      echo "$out" | grep -v '^cd'
+      exit $status
     EOS
   end
 
   def caveats
     <<~EOS
-      To enable directory switching, add these functions to your shell profile:
+      🎵 Orchestra is ready to use! 
+
+      Primary command:
+        orchestra       # Launch AI-powered TUI interface
+        
+      Alternative commands (for existing users):
+        gwr            # Same as orchestra (TUI interface)  
+        gw ls          # CLI worktree operations
+
+      The 'orchestra' command includes automatic directory switching.
+      
+      For advanced usage, you can also set up shell functions for gwr/gw:
 
       For bash (~/.bashrc):
         gwr() {
@@ -74,28 +105,6 @@ class GwOrchestrator < Formula
           return $status
         }
 
-      For zsh (~/.zshrc):
-        gwr() {
-          local out="$(command gwr "$@")"
-          local status=$?
-          local cd_line="$(echo "$out" | grep -m1 '^cd')"
-          [[ -n $cd_line ]] && eval "$cd_line"
-          echo "$out" | grep -v '^cd'
-          return $status
-        }
-
-        gw() {
-          local out="$(command gw "$@")"
-          local status=$?
-          local cd_line="$(echo "$out" | grep -m1 '^cd')"
-          [[ -n $cd_line ]] && eval "$cd_line"
-          echo "$out" | grep -v '^cd'
-          return $status
-        }
-
-      Then restart your shell or run:
-        source ~/.bashrc  # or source ~/.zshrc
-
       For AI-powered session naming, set your ANTHROPIC_API_KEY:
         export ANTHROPIC_API_KEY="your-api-key"
     EOS
@@ -103,10 +112,11 @@ class GwOrchestrator < Formula
 
   test do
     # Test that the binary exists and is executable
-    assert_predicate bin/"gw-orchestrator", :exist?
-    assert_predicate bin/"gw-orchestrator", :executable?
+    assert_predicate bin/"orchestra-bin", :exist?
+    assert_predicate bin/"orchestra-bin", :executable?
     
     # Test that wrapper scripts are accessible
+    assert_predicate bin/"orchestra", :exist?
     assert_predicate bin/"gwr", :exist?
     assert_predicate bin/"gw", :exist?
     

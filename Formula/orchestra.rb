@@ -7,10 +7,10 @@ class Orchestra < Formula
   # Binary-only distribution - downloads pre-compiled packages
   if OS.mac? && Hardware::CPU.intel?
     url "https://github.com/humanunsupervised/orchestra/releases/download/v0.1.4/orchestra-macos-intel.tar.gz"
-    sha256 "b32d38c979a07347969f4360deb991b888f726943d43c2e123ac9c29b04ff5d1"
+    sha256 "7abef9873a54f3e5df45369111a62911db6187612f937d34f01181c5bb731630"
   elsif OS.mac? && Hardware::CPU.arm?
     url "https://github.com/humanunsupervised/orchestra/releases/download/v0.1.4/orchestra-macos-arm64.tar.gz"
-    sha256 "1d23375ddd8c55ea7c8dd2f443ad0203bec9c4cdf18b9929d7e39b18ce4bab45"
+    sha256 "53ff34bacbfda15ed12c1910c67fa1657053104f2677bfbe843340b6f257a0ad"
   elsif OS.linux? && Hardware::CPU.intel?
     url "https://github.com/humanunsupervised/orchestra/releases/download/v0.1.4/orchestra-linux-x64.tar.gz"
     sha256 "PLACEHOLDER_SHA256_LINUX"

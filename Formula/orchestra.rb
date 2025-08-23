@@ -57,17 +57,35 @@ class Orchestra < Formula
   def orchestra_wrapper_script
     <<~EOS
       #!/bin/bash
-      # Primary Orchestra command - launches TUI interface
+      # Orchestra wrapper with hanging fix
       export GW_ORCHESTRATOR_ROOT="#{libexec}"
       export GW_TUI_BIN="#{bin}/orchestra-bin"
       
-      # Handle directory switching like gwr wrapper
-      out="$(#{libexec}/gwr.sh "$@")"
-      status=$?
-      cd_line="$(echo "$out" | grep -m1 '^cd')"
-      [[ -n $cd_line ]] && eval "$cd_line"
-      echo "$out" | grep -v '^cd'
-      exit $status
+      # Fixed wrapper logic - routes commands to avoid stdout capture hanging
+      case "${1:-}" in
+        ""|"--debug"|"-d"|"--help"|"-h"|"--version")
+          # Interactive TUI operations - run directly to avoid stdout capture
+          exec "#{libexec}/gwr.sh" "$@"
+          ;;
+        *)
+          # CLI operations that may need directory switching
+          tmpfile="$(mktemp)"
+          trap "rm -f '$tmpfile'" EXIT
+          
+          # Run CLI command and capture output in temp file
+          "#{libexec}/gw.sh" "$@" > "$tmpfile" 2>&1
+          status=$?
+          
+          # Handle directory switching
+          out="$(cat "$tmpfile")"
+          cd_line="$(echo "$out" | grep -m1 '^cd')"
+          [[ -n $cd_line ]] && eval "$cd_line"
+          
+          # Show output excluding cd commands  
+          echo "$out" | grep -v '^cd'
+          exit $status
+          ;;
+      esac
     EOS
   end
 

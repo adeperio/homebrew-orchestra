@@ -1,7 +1,7 @@
 class Orchestra < Formula
   desc "AI-powered Git worktree and tmux session manager with modern TUI"
   homepage "https://github.com/humanunsupervised/orchestra"
-  version "--skip-test"
+  version "0.1.6"
   license "Proprietary"
 
   # Binary-only distribution - downloads pre-compiled packages

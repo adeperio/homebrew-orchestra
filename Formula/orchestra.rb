@@ -1,7 +1,7 @@
 class Orchestra < Formula
   desc "AI-powered Git worktree and tmux session manager with modern TUI"
   homepage "https://github.com/humanunsupervised/orchestra"
-  version "0.5.8"
+  version "0.5.9"
   license "Proprietary"
 
   # Binary-only distribution - downloads pre-compiled packages
@@ -91,40 +91,7 @@ class Orchestra < Formula
 
   def caveats
     <<~EOS
-      🎵 Orchestra is ready to use! 
-
-      Primary command:
-        orchestra       # Launch AI-powered TUI interface
-        
-      Alternative commands (for existing users):
-        gwr            # Same as orchestra (TUI interface)  
-        gw ls          # CLI worktree operations
-
-      The 'orchestra' command includes automatic directory switching.
-      
-      For advanced usage, you can also set up shell functions for gwr/gw:
-
-      For bash (~/.bashrc):
-        gwr() {
-          local out="$(command gwr "$@")"
-          local status=$?
-          local cd_line="$(echo "$out" | grep -m1 '^cd')"
-          [[ -n $cd_line ]] && eval "$cd_line"
-          echo "$out" | grep -v '^cd'
-          return $status
-        }
-
-        gw() {
-          local out="$(command gw "$@")"
-          local status=$?
-          local cd_line="$(echo "$out" | grep -m1 '^cd')"
-          [[ -n $cd_line ]] && eval "$cd_line"
-          echo "$out" | grep -v '^cd'
-          return $status
-        }
-
-      For AI-powered session naming, set your ANTHROPIC_API_KEY:
-        export ANTHROPIC_API_KEY="your-api-key"
+      Orchestra is ready to use! Type `orchestra` in your repo root to start.
     EOS
   end
 

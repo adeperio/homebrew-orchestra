@@ -1,18 +1,18 @@
 class Orchestra < Formula
   desc "AI-powered Git worktree and tmux session manager with modern TUI"
   homepage "https://github.com/humanunsupervised/orchestra"
-  version "0.5.12"
+  version "0.5.13"
   license "Proprietary"
 
   # Binary-only distribution - downloads pre-compiled packages
   if OS.mac? && Hardware::CPU.intel?
-    url "https://github.com/humanunsupervised/orchestra/releases/download/v0.1.6/orchestra-macos-intel.tar.gz"
-    sha256 "5b20be828d5571efca1eab4ddbac405be75bb79074152ced5fa7561ef34c771e"
+    url "https://github.com/humanunsupervised/orchestra/releases/download/v#{version}/orchestra-macos-intel.tar.gz"
+    sha256 "d5541fc7ecfc1ae7ed21b077518f4498448ce73b6ddb825c95a8f8d5547b9599"
   elsif OS.mac? && Hardware::CPU.arm?
-    url "https://github.com/humanunsupervised/orchestra/releases/download/v0.1.6/orchestra-macos-arm64.tar.gz"
-    sha256 "ee18f4548b16149351f7fc65f4fa136020789905d5044394cea2a39ccdfbd84f"
+    url "https://github.com/humanunsupervised/orchestra/releases/download/v#{version}/orchestra-macos-arm64.tar.gz"
+    sha256 "65c085154088298c188f2a75e7f83bd8d3273bd4977b8bea641d7a45688b69ed"
   elsif OS.linux? && Hardware::CPU.intel?
-    url "https://github.com/humanunsupervised/orchestra/releases/download/v0.1.6/orchestra-linux-x64.tar.gz"
+    url "https://github.com/humanunsupervised/orchestra/releases/download/v#{version}/orchestra-linux-x64.tar.gz"
     sha256 "PLACEHOLDER_SHA256_LINUX"
   else
     odie "Orchestra is not available for #{OS.kernel_name} #{Hardware::CPU.arch}"
@@ -31,18 +31,7 @@ class Orchestra < Formula
     libexec.install "gw.sh"
     libexec.install "gw-bridge.sh"
     libexec.install "commands.sh"
-
-    orchestra_local = buildpath/"orchestra-local.sh"
-    if orchestra_local.exist?
-      libexec.install orchestra_local
-    else
-      (libexec/"orchestra-local.sh").write <<~EOS
-        #!/bin/bash
-        echo "orchestra-local helper is not available in this release." >&2
-        exit 1
-      EOS
-      (libexec/"orchestra-local.sh").chmod 0555
-    end
+    libexec.install "orchestra-local.sh"
     
     # Install API scripts
     (libexec/"api").mkpath
@@ -56,7 +45,6 @@ class Orchestra < Formula
     # Create primary orchestra command (same as gwr for TUI interface)
     (bin/"orchestra").write orchestra_wrapper_script()
     
-    # Local development helper
     (bin/"orchestra-local").write <<~EOS
       #!/bin/bash
       exec "#{libexec}/orchestra-local.sh" "$@"

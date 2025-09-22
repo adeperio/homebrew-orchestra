@@ -1,7 +1,7 @@
 class Orchestra < Formula
   desc "AI-powered Git worktree and tmux session manager with modern TUI"
   homepage "https://github.com/humanunsupervised/orchestra"
-  version "0.5.11"
+  version "0.5.12"
   license "Proprietary"
 
   # Binary-only distribution - downloads pre-compiled packages
@@ -31,7 +31,18 @@ class Orchestra < Formula
     libexec.install "gw.sh"
     libexec.install "gw-bridge.sh"
     libexec.install "commands.sh"
-    libexec.install "orchestra-local.sh"
+
+    orchestra_local = buildpath/"orchestra-local.sh"
+    if orchestra_local.exist?
+      libexec.install orchestra_local
+    else
+      (libexec/"orchestra-local.sh").write <<~EOS
+        #!/bin/bash
+        echo "orchestra-local helper is not available in this release." >&2
+        exit 1
+      EOS
+      (libexec/"orchestra-local.sh").chmod 0555
+    end
     
     # Install API scripts
     (libexec/"api").mkpath

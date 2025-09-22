@@ -1,7 +1,7 @@
 class Orchestra < Formula
   desc "AI-powered Git worktree and tmux session manager with modern TUI"
   homepage "https://github.com/humanunsupervised/orchestra"
-  version "0.5.10"
+  version "0.5.11"
   license "Proprietary"
 
   # Binary-only distribution - downloads pre-compiled packages
@@ -31,6 +31,7 @@ class Orchestra < Formula
     libexec.install "gw.sh"
     libexec.install "gw-bridge.sh"
     libexec.install "commands.sh"
+    libexec.install "orchestra-local.sh"
     
     # Install API scripts
     (libexec/"api").mkpath
@@ -43,6 +44,13 @@ class Orchestra < Formula
     
     # Create primary orchestra command (same as gwr for TUI interface)
     (bin/"orchestra").write orchestra_wrapper_script()
+    
+    # Local development helper
+    (bin/"orchestra-local").write <<~EOS
+      #!/bin/bash
+      exec "#{libexec}/orchestra-local.sh" "$@"
+    EOS
+    (bin/"orchestra-local").chmod 0555
   end
 
   def wrapper_script(script_name)
@@ -104,6 +112,7 @@ class Orchestra < Formula
     assert_predicate bin/"orchestra", :exist?
     assert_predicate bin/"gwr", :exist?
     assert_predicate bin/"gw", :exist?
+    assert_predicate bin/"orchestra-local", :exist?
     
     # Test basic help output (in a safe way)
     output = shell_output("#{bin}/gw help 2>&1", 0)

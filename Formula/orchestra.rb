@@ -1,16 +1,16 @@
 class Orchestra < Formula
   desc "AI-powered Git worktree and tmux session manager with modern TUI"
   homepage "https://github.com/humanunsupervised/orchestra"
-  version "0.5.21"
+  version "0.5.22"
   license "Proprietary"
 
   # Binary-only distribution - downloads pre-compiled packages
   if OS.mac? && Hardware::CPU.intel?
     url "https://github.com/humanunsupervised/orchestra/releases/download/v#{version}/orchestra-macos-intel.tar.gz"
-    sha256 "0da1d28ca1e6fc2addc9be8823935497900dc1f96c387c71d4eefddea34eb4ae"
+    sha256 "3eb84d5057e6c1c1e3803904abbe6d4dff8c5b3b0761be4f018d2b45fff3122a"
   elsif OS.mac? && Hardware::CPU.arm?
     url "https://github.com/humanunsupervised/orchestra/releases/download/v#{version}/orchestra-macos-arm64.tar.gz"
-    sha256 "bf3bdd8893febe05ee6a6225b66606e841682b6c8ede5198a603f5224d6fbd09"
+    sha256 "ebee40aa265f06011304d7ded5eb276547d5cf24c059fb357a7b8c0b45baafae"
   elsif OS.linux? && Hardware::CPU.intel?
     url "https://github.com/humanunsupervised/orchestra/releases/download/v#{version}/orchestra-linux-x64.tar.gz"
     sha256 "PLACEHOLDER_SHA256_LINUX"
@@ -31,6 +31,7 @@ class Orchestra < Formula
     libexec.install "gw.sh"
     libexec.install "gw-bridge.sh"
     libexec.install "commands.sh"
+    libexec.install "copy_env.sh"
     libexec.install "orchestra-local.sh"
     
     # Install API scripts

@@ -1,16 +1,16 @@
 class Orchestra < Formula
   desc "AI-powered Git worktree and tmux session manager with modern TUI"
   homepage "https://github.com/humanunsupervised/orchestra"
-  version "0.5.25"
+  version "0.5.26"
   license "Proprietary"
 
   # Binary-only distribution - downloads pre-compiled packages
   if OS.mac? && Hardware::CPU.intel?
     url "https://github.com/humanunsupervised/orchestra/releases/download/v#{version}/orchestra-macos-intel.tar.gz"
-    sha256 "d3f972a6315df97daa553fffd39374edd12dedec97991ccb75cddee5a9615ab4"
+    sha256 "44be6f75c7812f918ce60d3903b44586e1ccf506cb5d73d27bbc14799872be8c"
   elsif OS.mac? && Hardware::CPU.arm?
     url "https://github.com/humanunsupervised/orchestra/releases/download/v#{version}/orchestra-macos-arm64.tar.gz"
-    sha256 "f8bee149fe8a0952edd9741881401ed2d962075d528d0ef347d17f83358a4b4e"
+    sha256 "74bf63398adedd341b14394cb7a818834ca07eacf2f3935571ffc4ff85c07239"
   elsif OS.linux? && Hardware::CPU.intel?
     url "https://github.com/humanunsupervised/orchestra/releases/download/v#{version}/orchestra-linux-x64.tar.gz"
     sha256 "PLACEHOLDER_SHA256_LINUX"

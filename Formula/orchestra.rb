@@ -1,19 +1,19 @@
 class Orchestra < Formula
   desc "AI-powered Git worktree and tmux session manager with modern TUI"
   homepage "https://github.com/humanunsupervised/orchestra"
-  version "0.5.31"
+  version "0.5.32"
   license "Proprietary"
 
   # Binary-only distribution - downloads pre-compiled packages
   if OS.mac? && Hardware::CPU.intel?
     url "https://github.com/humanunsupervised/orchestra/releases/download/v#{version}/orchestra-macos-intel.tar.gz"
-    sha256 "c2e43e10a34244046ee04ca734df47d6c747559ec8e915c9973b4c6e92cd5f97"
+    sha256 "d55cd557b8fb166b37797a64d1efbd9186d8634374030786c0be3a1cb09cc016"
   elsif OS.mac? && Hardware::CPU.arm?
     url "https://github.com/humanunsupervised/orchestra/releases/download/v#{version}/orchestra-macos-arm64.tar.gz"
-    sha256 "0efaea639e176249d2f85d9700c8d8c09722358bd76a9798c6e38de070a68284"
+    sha256 "c345aabefaa026de82626558b3547bc6840ed12f56a557698b363d0348254315"
   elsif OS.linux? && Hardware::CPU.intel?
     url "https://github.com/humanunsupervised/orchestra/releases/download/v#{version}/orchestra-linux-x64.tar.gz"
-    sha256 "d09097df088a05723b424c07bdf53e3a261a6a4e92918891dd8f37e5d7e10e8c"
+    sha256 "a7d31ed789039ad7a87280eea3420e6745eaea3510cec6fa2c8837d36d5d40d4"
   else
     odie "Orchestra is not available for #{OS.kernel_name} #{Hardware::CPU.arch}"
   end
